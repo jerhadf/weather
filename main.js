@@ -88,11 +88,11 @@ $("#unit").click(function() {
 
     if(unit === "Fahrenheit") {
         var unit = $("#unit").html("Celsius");
-        temp = ((temp - 32)*5)/9; 
+        temp = Math.round(((temp - 32)*5)/9); 
         $('#temp').html(temp);
     } else {
         var unit = $("#unit").html("Fahrenheit");
-        temp = ((temp * 9)/5) + 32; 
+        temp = Math.round(((temp * 9)/5) + 32); 
         $('#temp').html(temp);
     }
 }); 
