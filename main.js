@@ -1,15 +1,17 @@
+$( document ).ready(function() {
+
 $(".title-main").click(function() {
     // css animations
-    $(".title").css({
+    $(".title").animate({
         "opacity": "0"
-    });
+    }, "1s");
 
     $(".weather").animate({
         "opacity": "1", 
         "padding-top":"50px", "padding-bottom": "50px", 
         "padding-left":"50px", "padding-right": "50px", 
         "background-color": "rgba(250, 250, 250, .15)"
-    }, 500);
+    }, "1s");
 
     // get location
     var city;
@@ -39,11 +41,61 @@ $(".title-main").click(function() {
                 url: url, 
                 dataType: "jsonp", 
                 success: function(response) {
-                    var temp = response.main.temp; 
+                    // get temperature
+                    console.log(response); 
+                    var temp = Math.round(response.main.temp * (9/5) - 459.67); 
                     $('#temp').html(temp); 
                     
+                    // get weather description, change background
+                    var weatherDesc = response.weather[0].description; 
+                    console.log(weatherDesc); 
+
+                    switch(weatherDesc) {
+                        case "mist":
+                            $('.weatherdesc').html("Misty");
+                            $('body').css({
+                                "background-image":"url('Images/mist.png')", 
+                                "transition":"1.75s"
+                            });
+                            break; 
+                        case "clear sky" || "few clouds":
+                            $('.weatherdesc').html("Clear skies");
+                            $('body').css("background-image","url('Images/clearskies.png')");
+                            break;
+                        case "scattered clouds" || "broken clouds":
+                            $('.weatherdesc').html("Cloudy");
+                            break; 
+                        case "shower rain" || "rain":
+                            $('.weatherdesc').html("Raining");
+                            break;
+                        case "thunderstorm":
+                            $('.weatherdesc').html("Thunderstorms");
+                            break; 
+                        case "snow":
+                            $('.weatherdesc').html("Snowing");
+                            break;
+                    }
                 }
             });
         }
     });
+}); 
+
+$("#unit").click(function() {
+    console.log("there"); 
+    var unit = $("#unit").html();
+    var temp = $('#temp').html();
+
+    if(unit === "Fahrenheit") {
+        var unit = $("#unit").html("Celsius");
+        temp = ((temp - 32)*5)/9; 
+        $('#temp').html(temp);
+    } else {
+        var unit = $("#unit").html("Fahrenheit");
+        temp = ((temp * 9)/5) + 32; 
+        $('#temp').html(temp);
+    }
+}); 
+
+
 }); 

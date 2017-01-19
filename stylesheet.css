@@ -1,6 +1,6 @@
 html, body {
-    background: url("Images/ruralbkgrnd.jpg");
-    background-size: cover; 
+    background-image: url("Images/blueskies.png");
+    background-size: cover;
     height: 100%; 
     overflow: hidden; 
 }
@@ -30,10 +30,10 @@ html, body {
     position: absolute; 
     top: 200px; 
     left: 32.5%; 
-    cursor: pointer; 
+    cursor: default; 
 }
 
-.weathersum {
+.weatherdesc {
     font-size: 70px; 
     font-weight: 700; 
     font-family: "Open Sans", sans-serif; 
@@ -44,6 +44,23 @@ html, body {
     font-weight: 300; 
     font-family: "Open Sans", sans-serif;
 }
+
+#unit {
+    font-size: 30px; 
+    font-weight: 375; 
+    font-family: "Open Sans", sans-serif;
+    color: #0091EA; 
+    cursor: pointer;
+}
+
+#unit:hover {
+    font-size: 30px; 
+    font-weight: 500; 
+    font-family: "Open Sans", sans-serif;
+    color: #2962FF; 
+    cursor: pointer;
+}
+
 
 .location {  
     font-size: 20px; 
