@@ -1,4 +1,3 @@
-
 $(".title-main").click(function() {
     // css animations
     $(".title").css({
@@ -12,30 +11,39 @@ $(".title-main").click(function() {
         "background-color": "rgba(250, 250, 250, .15)"
     }, 500);
 
-    // user coordinates
-    var lat; 
-    var long; 
-    function getLocation({
-        navigator.geolocation.getCurrentPosition(
-            function showPosition(position) {
-                lat = position.coords.latitude; 
-                long = position.coords.longitude; 
-            })
-    )}; 
+    // get location
+    var city;
+    var coords = []; 
+    $.ajax({
+        async: false,
+        type: 'GET',
+        dataType: 'jsonp', 
+        url: 'http://ipinfo.io',
+        success: function(response) {
 
-    function getWeather(arg) {
-        lat = "lat=" + lat; 
-        long = "&lon=" + long;
-        var key = "&appid=a11c5f2fd284d93c21b0aee731238aec"; 
-        var url = "http://api.openweathermap.org/data/2.5/weather?" + lat + long + key; 
+            //coords
+            coords = response.loc.split(','); 
 
-        console.log(url); 
+            //city 
+            city = (response.city + ", " + response.region); 
+            $(".location").html(city); 
 
-        $.get(url, function(response) {
-            console.log(response); 
-        }, "jsonp");
-    }
+            //initialize weather url variables
+            var key = "&appid=a11c5f2fd284d93c21b0aee731238aec"; 
+            var lat = "lat=" + coords[0];
+            var long = "&lon=" + coords[1];
+            var url = "http://api.openweathermap.org/data/2.5/weather?" + lat + long + key;
 
-    getLocation(getWeather); 
-    
+            // get weather
+            $.ajax({
+                url: url, 
+                dataType: "jsonp", 
+                success: function(response) {
+                    var temp = response.main.temp; 
+                    $('#temp').html(temp); 
+                    
+                }
+            });
+        }
+    });
 }); 
