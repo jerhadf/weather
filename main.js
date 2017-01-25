@@ -20,7 +20,7 @@ $(".title-main").click(function() {
         async: false,
         type: 'GET',
         dataType: 'jsonp', 
-        url: 'http://ipinfo.io',
+        url: 'https://ipinfo.io',
         success: function(response) {
 
             //coords
@@ -34,7 +34,7 @@ $(".title-main").click(function() {
             var key = "&appid=a11c5f2fd284d93c21b0aee731238aec"; 
             var lat = "lat=" + coords[0];
             var long = "&lon=" + coords[1];
-            var url = "http://api.openweathermap.org/data/2.5/weather?" + lat + long + key;
+            var url = "https://api.openweathermap.org/data/2.5/weather?" + lat + long + key;
 
             // get weather
             $.ajax({
@@ -60,7 +60,7 @@ $(".title-main").click(function() {
                             break; 
                         case "clear sky" || "few clouds":
                             $('.weatherdesc').html("Clear skies");
-                            $('body').css("background-image","url('Images/clearskies.png')");
+                            $('body').css("background-image","url('https://i.imgur.com/BsmRGyG.jpg')");
                             break;
                         case "scattered clouds" || "broken clouds":
                             $('.weatherdesc').html("Cloudy");
